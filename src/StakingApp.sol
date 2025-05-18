@@ -42,6 +42,13 @@ contract StakingApp is Ownable{
         emit DepositTokens(msg.sender, tokenAmountToDeposit_);
     }
     // 2. Withdraw
+    function withdrawTokens() external {
+        
+        uint256 userBalance_ = userBalance[msg.sender];
+        userBalance[msg.sender] = 0;
+        IERC20(stakingToken).transfer(msg.sender, 10);
+        
+    }
 
     // 3. Claim rewards
 
