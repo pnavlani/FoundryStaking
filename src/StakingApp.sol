@@ -22,6 +22,7 @@ contract StakingApp is Ownable{
     event ChangeStakingPeriod(uint256 newStakingPeriod_);
     event DepositTokens(address userAddress_, uint256 depositAmount_);
     event WithdrawTokens(address userAddress_, uint256 withdrawAmount_);
+    event EtherSent(uint256 amount_);
     
     
     constructor(address stakingToken_ ,  address owner_, uint256 stakingPeriod_, uint256 fixedStakingAmount_, uint256 rewardPerPeriod_)  Ownable(owner_){
@@ -75,7 +76,13 @@ contract StakingApp is Ownable{
         
     }
 
-    // Internal functions 
+    
+    /*
+    function feedContract() external payable onlyOwner {} */
+
+    receive() external payable onlyOwner{
+        emit EtherSent(msg.value);
+    }
 
     // Staking reward period
     function changeStakingPeriod(uint256 newStakingPeriod_) external onlyOwner {
